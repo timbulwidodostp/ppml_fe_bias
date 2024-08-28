@@ -220,6 +220,12 @@ replicated, or have other suggestions for improvements, please feel free to {bro
 {marker contact}{...}
 {title:Author}
 
+{pstd}Timbul Widodo{break}
+Olah Data Semarang{break}
+https://www.youtube.com/@amalsedekah/videos{break}
+Email: {browse "mailto:bisnis.blog1976@gmail.com":bisnis.blog1976@gmail.com}
+{p_end}
+
 {pstd}Thomas Zylkin{break}
 Department of Economics, Robins School of Business{break}
 University of Richmond{break}
