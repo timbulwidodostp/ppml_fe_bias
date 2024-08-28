@@ -142,7 +142,7 @@ as originally shown by Fernández-Val & Weidner (2016).{p_end}
 {marker examples}{...}
 {title:Examples}
 
-{pstd}These examples follow {browse "https://github.com/tomzylkin/ppml_fe_bias/blob/master/examples/EXAMPLE%20DO%20FILE%20(ppml_fe_bias).do":sample .do file} included along with this command. 
+{pstd}These examples follow {browse "https://github.com/timbulwidodostp/ppml_fe_bias. 
 The data set used in this .do file
 consists of a panel of 65 countries trading with one another over the years 1988-2004, using every 4 years. The
 trade data uses aggregated trade flows from UN COMTRADE, with information on FTAs taken from the {browse "https://sites.nd.edu/jeffrey-bergstrand/database-on-economic-integration-agreements/": NSF-Kellogg database}
@@ -153,7 +153,7 @@ Stata command created by Correia, Guimarães, & Zylkin (2020).{p_end}
 {pstd}{bf:Three-way example}. Using {cmd:ppmlhdfe}, the appropriate syntax for specifying a three-way gravity model
 with exporter-time, importer-time, and exporter-importer fixed effects and standard errors that are clustered by pair is  {p_end}
 
-{p 8 15 2}{cmd:ppmlhdfe trade fta, a(imp#year exp#year imp#exp) cluster(imp#exp) d}
+{p 8 15 2}{cmd:qui ppmlhdfe trade fta, a(imp#year exp#year imp#exp) cluster(imp#exp) d}
 
 {pstd}The "d" option is needed to facilitate obtaining values for the conditional mean of the dependent variable, which
 {cmd:ppml_fe_bias} will need in order to construct the necessary expressions for the bias corrections. We next create
@@ -162,7 +162,7 @@ estimated coefficient on fta. We then pass these results along with the data to 
 
 {p 8 8 2}{cmd:predict lambda}{break}
 {cmd:matrix beta = e(b)}{break}
-{cmd:ppml_fe_bias trade fta, i(expcode) j(impcode) t(year) lambda(lambda) beta(beta)}{p_end}
+{cmd:ppml_fe_bias trade fta, i(exp) j(imp) t(year) lambda(lambda) beta(beta)}{p_end}
 
 {pstd}The resulting output shows there is an upward bias of about 0.006 in the estimated PPML coefficient for fta.
 While the bias-corrected estimate is not overly different from the original uncorrected one (0.170 vs 0.178), it is
@@ -177,7 +177,7 @@ is recommended researchers implement these checks whenever feasible as a matter 
 
 {pstd}{bf:Two-way example}. Using the same example data set and .do file a typical two-way gravity regression would be
 
-{p 8 8 2}{cmd:ppmlhdfe trade ln_distw contig colony comlang_off comleg fta, a(imp#year exp#year) cluster(imp#exp) d}{p_end}
+{p 8 8 2}{cmd:qui ppmlhdfe trade ln_distw contig colony comlang_off comleg fta, a(imp#year exp#year) cluster(imp#exp) d}{p_end}
 
 {pstd}where we now include some covariates that would otherwise be absorbed by the exporter-importer fixed effect
 from the three-way model, such as the log of bilateral distance and the sharing of a colonial relationship. The code
@@ -185,7 +185,7 @@ to compute bias-corrected standard errors and to present the results in a nicely
 
 {p 8 8 2}{cmd:predict lambda_2way}{break}
 {cmd:matrix beta_2way = e(b)}{break}
-{cmd:ppml_fe_bias trade ln_distw contig colony comlang_off comleg fta, i(expcode) j(impcode) t(year) lambda(lambda_2way) beta(beta_2way) twoway}{p_end}
+{cmd:ppml_fe_bias trade ln_distw contig colony comlang_off comleg fta, i(exp) j(imp) t(year) lambda(lambda_2way) twoway beta(beta_2way)}{p_end}
 
 {pstd}As the results show, the implied downward biases in the standard error for the two-way model are similar to the
 corresponding bias found for fta coefficient in the three-way model, generally ranging between 20% and 26%.
